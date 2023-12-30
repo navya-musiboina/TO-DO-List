@@ -1,0 +1,95 @@
+//TO-DO List
+#include<iostream>
+using namespace std;
+struct todo{
+    string task;
+    int index;
+    bool complete;
+};
+static int ID;
+ todo T[10];
+void addtask(string task)
+{
+     ID++;
+    T[ID].task=task;
+    T[ID].index=ID;
+    T[ID].complete=false;
+}
+void viewtask()
+{
+    for(int i=1;i<=ID;i++)
+    {
+        cout<<T[i].index<<". "<<T[i].task<<" "<<T[i].complete<<endl;
+    }
+}
+void markcmplt(int taskindex)
+{
+    if(taskindex>=1 && taskindex<=ID){
+    T[taskindex].complete=true;
+    cout<<"Task marked as completed"<<endl;
+    }
+    else
+    cout<<"Invalid Task number"<<endl;
+}
+void removetask(int Taskindex)
+{
+     if(Taskindex>=1 && Taskindex<=ID)
+     {
+         for(int i=Taskindex;i<=ID-1;i++)
+         {
+             T[i]=T[i+1];
+             T[i].index=i;
+         }
+         ID--;
+         cout<<"Task removed"<<endl;
+     }
+     else
+     cout<<"Invalid Task number"<<endl;
+}
+int main()
+{
+    cout<<"To-Do List:"<<endl;
+    cout << "1. Add Task"<<endl;
+    cout << "2. View Tasks"<<endl;
+    cout << "3. Mark Task as Completed"<<endl;
+    cout << "4. Remove Task"<<endl;
+    cout << "5. Quit"<<endl;
+    int choice;
+    string Task;
+    cout<<"Enter choice:";
+    cin>>choice;
+    while(1)
+    {
+        switch(choice)
+        {
+            case 1:
+            cout<<"Enter the task to be added:";
+            cin.ignore();
+            getline(cin,Task);
+            addtask(Task);
+            break;
+            case 2:
+            viewtask();
+            break;
+            case 3:
+            int taskindex;
+            cout<<"Enter the taskindex:";
+            cin>>taskindex;
+            markcmplt(taskindex);
+            break;
+            case 4:
+            int TaskIndex;
+            cout<<"Enter the taskindex:";
+            cin>>TaskIndex;
+            removetask(TaskIndex);
+            break;
+            case 5:
+            exit(0);
+            break;
+            default:
+            cout<<"Invalid choice"<<endl;
+        }
+        cout<<"Enter choice:";
+        cin>>choice;
+    }
+}
